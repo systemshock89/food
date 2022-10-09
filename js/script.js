@@ -135,21 +135,31 @@ window.addEventListener('DOMContentLoaded', () => {
   const deadline = '2023-05-11';
 
   function getTimeRemaining(endtime) {
-    const t = Date.parse(endtime) - Date.parse(new Date()),
-          // Math.floor округление до ближайшего целого
-    // (1000 * 60 * 60 * 24) сколько в сутках миллисекунд
-    days = Math.floor(t / (1000 * 60 * 60 * 24)),
-          // 1000 * 60 * 60 делим на кол-во миллисекунд в одном часе
-    // чтобы не получить 100 часов, нужно исп-ть %
-    // % делит на 24 и возвращает остаток от деления
-    hours = Math.floor(t / (1000 * 60 * 60) % 24),
-          minites = Math.floor(t / 1000 / 60 % 60),
-          seconds = Math.floor(t / 1000 % 60);
+    let days, hours, minutes, seconds;
+    const t = Date.parse(endtime) - Date.parse(new Date());
+
+    if (t <= 0) {
+      days = 0;
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
+    } else {
+      // Math.floor округление до ближайшего целого
+      // (1000 * 60 * 60 * 24) сколько в сутках миллисекунд
+      days = Math.floor(t / (1000 * 60 * 60 * 24)); // 1000 * 60 * 60 делим на кол-во миллисекунд в одном часе
+      // чтобы не получить 100 часов, нужно исп-ть %
+      // % делит на 24 и возвращает остаток от деления
+
+      hours = Math.floor(t / (1000 * 60 * 60) % 24);
+      minutes = Math.floor(t / 1000 / 60 % 60);
+      seconds = Math.floor(t / 1000 % 60);
+    }
+
     return {
       'total': t,
       'days': days,
       'hours': hours,
-      'minutes': minites,
+      'minutes': minutes,
       'seconds': seconds
     };
   } // подсталяем 0 к цифрам, если они < 10, чтобы было напр 01
