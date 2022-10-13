@@ -254,4 +254,6 @@ window.addEventListener('DOMContentLoaded', () => {
         ).render();
     // /Используем классы для карточек
 
+
+    // test
 });
