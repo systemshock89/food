@@ -91,7 +91,10 @@
   !*** ./src/js/main.js ***!
   \************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 window.addEventListener('DOMContentLoaded', () => {
   // Tabs
@@ -306,6 +309,91 @@ window.addEventListener('DOMContentLoaded', () => {
   new MenuCard("img/tabs/vegy.jpg", "vegy", 'Меню "Фитнес"', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 9, ".menu .container").render();
   new MenuCard("img/tabs/elite.jpg", "elite", 'Меню "“Премиум”"', 'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!', 550, ".menu .container", "menu__item").render();
   new MenuCard("img/tabs/post.jpg", "post", 'Меню “Постное”', 'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.', 430, ".menu .container", "menu__item").render(); // /Используем классы для карточек
+  // Forms
+  // вариант ajax использующий XMLHttpRequest
+
+  const forms = document.querySelectorAll('form');
+  const message = {
+    loading: 'Загрузка',
+    success: 'Спасибо! Скоро мы с Вами свяжемся',
+    failture: 'Что-то пошло не так...'
+  };
+  forms.forEach(item => {
+    // postDataFormData(item);
+    postData(item);
+  }); // отправляем данные в формате FormData
+
+  function postDataFormData(form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const statusMessage = document.createElement('div');
+      statusMessage.classList.add('status');
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage);
+      const request = new XMLHttpRequest();
+      request.open('POST', 'server.php'); // если отправляем заголовок, то получаем Missing boundary in multipart/form-data POST data in 
+      // решение: не отправлять заголовок вовсе, он устанавливается автоматически
+      // https://inoyakaigor.ru/blog/94
+      // request.setRequestHeader('Content-type', 'multipart/form-data');
+      // соберем все данные с формы в формат FormData
+      // ! у всех input-ов обязательно должен быть атрибут name
+
+      const formData = new FormData(form); // если в openserver HTTP apache, то получаем ошибку.
+      // Нужно поставить Nginx 1.12 или apache + nginx
+
+      request.send(formData);
+      request.addEventListener('load', () => {
+        if (request.status === 200) {
+          console.log(request.response);
+          statusMessage.textContent = message.success;
+          form.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 2000);
+        } else {
+          statusMessage.textContent = message.failture;
+        }
+      });
+    });
+  } // отправляем данные в формате json
+
+
+  function postData(form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const statusMessage = document.createElement('div');
+      statusMessage.classList.add('status');
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage);
+      const request = new XMLHttpRequest();
+      request.open('POST', 'server.php');
+      request.setRequestHeader('Content-type', 'application/json'); // соберем все данные с формы в формат FormData
+      // ! у всех input-ов обязательно должен быть атрибут name
+
+      const formData = new FormData(form); // из FormData получим обычный объект 
+
+      const object = {};
+      formData.forEach(function (value, key) {
+        object[key] = value;
+      }); // из объекта получим json
+
+      const json = JSON.stringify(object);
+      request.send(json);
+      request.addEventListener('load', () => {
+        if (request.status === 200) {
+          console.log(request.response);
+          statusMessage.textContent = message.success;
+          form.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 2000);
+        } else {
+          statusMessage.textContent = message.failture;
+        }
+      });
+    });
+  } // /Forms
+
 });
 
 /***/ })
