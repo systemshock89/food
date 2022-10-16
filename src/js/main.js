@@ -269,51 +269,93 @@ window.addEventListener('DOMContentLoaded', () => {
         postData(item);
     });
 
-    // отправляем данные в формате FormData
-    function postDataFormData(form){
+    // отправляем данные в формате json
+    // Метод Fetch
+    function postData(form){
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
-            form.append(statusMessage);
-
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-
-            // если отправляем заголовок, то получаем Missing boundary in multipart/form-data POST data in 
-            // решение: не отправлять заголовок вовсе, он устанавливается автоматически
-            // https://inoyakaigor.ru/blog/94
-            // request.setRequestHeader('Content-type', 'multipart/form-data');
+            // spinner
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            form.insertAdjacentElement('afterend', statusMessage);
 
             // соберем все данные с формы в формат FormData
             // ! у всех input-ов обязательно должен быть атрибут name
             const formData = new FormData(form);
- 
-            // если в openserver HTTP apache, то получаем ошибку.
-            // Нужно поставить Nginx 1.12 или apache + nginx
-            request.send(formData);
 
-            request.addEventListener('load', () => {
-                if (request.status === 200){
-                    console.log(request.response);
-                    statusMessage.textContent = message.success;
-                    form.reset();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 2000);
-                } else {
-                    statusMessage.textContent = message.failture;
-                }
+            // из FormData получим обычный объект 
+            const object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+
+            fetch('server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(object) // из объекта получим json
+            }).then((data) => data.text()) // преобразовали данные ответа сервера в текст
+            .then(data => { // если ok
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => { // если ошибка
+                showThanksModal(message.failture);
+            }).finally(() => {
+                form.reset();
             });
 
         });
+    }
 
+     // отправляем данные в формате FormData
+    // Метод Fetch
+    function postDataFetchFormData(form){
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // spinner
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            form.insertAdjacentElement('afterend', statusMessage);
+
+            // соберем все данные с формы в формат FormData
+            // ! у всех input-ов обязательно должен быть атрибут name
+            const formData = new FormData(form);
+
+            fetch('server.php', {
+                method: 'POST',
+                // headers: {
+                //     'Content-type': 'application/json'
+                // },
+                body: formData
+            }).then((data) => data.text()) // преобразовали данные ответа сервера в текст
+            .then(data => { // если ok
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => { // если ошибка
+                showThanksModal(message.failture);
+            }).finally(() => {
+                form.reset();
+            });
+
+        });
     }
 
     // отправляем данные в формате json
-    function postData(form){
+    // Устар. метод XMLHttpRequest
+    function postDataXMLHttpRequestJson(form){
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -357,6 +399,50 @@ window.addEventListener('DOMContentLoaded', () => {
             });
 
         });
+    }
+
+    // отправляем данные в формате FormData
+      // Устар. метод XMLHttpRequest
+      function postDataXMLHttpRequestFormData(form){
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            // если отправляем заголовок, то получаем Missing boundary in multipart/form-data POST data in 
+            // решение: не отправлять заголовок вовсе, он устанавливается автоматически
+            // https://inoyakaigor.ru/blog/94
+            // request.setRequestHeader('Content-type', 'multipart/form-data');
+
+            // соберем все данные с формы в формат FormData
+            // ! у всех input-ов обязательно должен быть атрибут name
+            const formData = new FormData(form);
+ 
+            // если в openserver HTTP apache, то получаем ошибку.
+            // Нужно поставить Nginx 1.12 или apache + nginx
+            request.send(formData);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200){
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000);
+                } else {
+                    statusMessage.textContent = message.failture;
+                }
+            });
+
+        });
+
     }
 
     // ф-я показывающая сообщения после отправки формы
