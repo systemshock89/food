@@ -527,7 +527,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // /Forms
 
 
-    // Slider
+    // Slider variant 1
     const slides = document.querySelectorAll('.offer__slide'),
           prev = document.querySelector('.offer__slider-prev'),
           next = document.querySelector('.offer__slider-next'),
@@ -576,6 +576,6 @@ window.addEventListener('DOMContentLoaded', () => {
     next.addEventListener('click', () => {
         plusSlides(+1);
     });
-    // /Slider
+    // /Slider variant 1
 
 });

@@ -3313,7 +3313,7 @@ window.addEventListener('DOMContentLoaded', () => {
       closeModal();
     }, 4000);
   } // /Forms
-  // Slider
+  // Slider variant 1
 
 
   const slides = document.querySelectorAll('.offer__slide'),
@@ -3361,7 +3361,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   next.addEventListener('click', () => {
     plusSlides(+1);
-  }); // /Slider
+  }); // /Slider variant 1
 });
 
 /***/ })
