@@ -243,6 +243,15 @@ window.addEventListener('DOMContentLoaded', () => {
         });
    });
 
+    // получим данные карточек (с помощью биб-ки axios)
+    // возвращается более подробный ответ и data уже сконвертирована в массив
+    // axios.get('http://localhost:3000/menu')
+    // .then(data => {
+    //     data.data.forEach(({img, altimg, title, descr, price}) => { 
+    //         new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    //     });
+    // });
+
     // еще способ (когда не нужна шаблонизация, например, если необходимо только один раз что-то построить) c помощью ф-и createCard
     // getResource('http://localhost:3000/menu')
     // .then(data => createCard(data));
@@ -350,7 +359,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
             postData('http://localhost:3000/requests', json) 
             .then(data => { // если ok
-                console.log(data);
                 showThanksModal(message.success);
                 statusMessage.remove();
             }).catch(() => { // если ошибка
@@ -389,7 +397,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 body: formData
             }).then((data) => data.text()) // преобразовали данные ответа сервера в текст
             .then(data => { // если ok
-                console.log(data);
                 showThanksModal(message.success);
                 statusMessage.remove();
             }).catch(() => { // если ошибка
@@ -437,7 +444,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
             request.addEventListener('load', () => {
                 if (request.status === 200){
-                    console.log(request.response);
                     showThanksModal(message.success);
                     form.reset();
                     statusMessage.remove();
@@ -477,8 +483,7 @@ window.addEventListener('DOMContentLoaded', () => {
             request.send(formData);
 
             request.addEventListener('load', () => {
-                if (request.status === 200){
-                    console.log(request.response);
+                if (request.status === 200){ 
                     statusMessage.textContent = message.success;
                     form.reset();
                     setTimeout(() => {
@@ -520,10 +525,5 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
     // /Forms
-
-    fetch('http://localhost:3000/menu')
-        .then(data => data.json())
-        .then(res => console.log(res));
-
 
 });
