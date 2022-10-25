@@ -580,12 +580,18 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     // /dots
 
+    // регулярка: все Не числа в строке заменить на 'пусто', получив число
+    function deleteNotDigits(str){
+        return +str.replace(/\D/g, '');
+    }
+
     next.addEventListener('click', () => {
         // если долистали до самого конца, то возвратимся в начало
-        if(offset == +width.slice(0, width.length - 2) * (slides.length -1) ){ // width превратим в число и отрежем px
+        if(offset == deleteNotDigits(width) * (slides.length -1) ){ // width превратим в число и отрежем px
             offset = 0;
         } else { // если слайд не последний, то смещаем на ширину одного слайда
-            offset += +width.slice(0, width.length - 2);
+            offset += deleteNotDigits(width); 
+            // offset += +width.slice(0, width.length - 2);
         }
         slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -603,9 +609,9 @@ window.addEventListener('DOMContentLoaded', () => {
     prev.addEventListener('click', () => {
         // если долистали до самого начала, то возвратимся в конец слайдера
         if(offset == 0){ 
-            offset = +width.slice(0, width.length - 2) * (slides.length -1);
+            offset = deleteNotDigits(width) * (slides.length -1);
         } else { // если слайд не первый, то смещаем на ширину одного слайда
-            offset -= +width.slice(0, width.length - 2);
+            offset -= deleteNotDigits(width);
         }
         slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -625,7 +631,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const slideTo = e.target.getAttribute('data-slide-to');
             slideIndex = slideTo;
 
-            offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+            offset = deleteNotDigits(width) * (slideTo - 1);
             slidesField.style.transform = `translateX(-${offset}px)`;
 
             setCurrent(slides);
