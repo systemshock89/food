@@ -117,4 +117,5 @@ function calc() {
     // /Calc
 }
 
-module.exports = calc;
+// module.exports = calc; // старый синтаксис экспорта модулей
+export default calc; // стандарт ES6

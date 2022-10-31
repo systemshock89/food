@@ -1,3 +1,5 @@
+import {getResource} from '../services/services';
+
 function cards() {
     // Используем классы для карточек
     class MenuCard {
@@ -42,18 +44,6 @@ function cards() {
             this.parent.append(element);
         }
     }
-
-    // получим данные карточек
-    const getResource = async (url, data) => {
-        const res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`); // объект ошибки
-            // оператор throw выкидывает новую ошибку
-        }
-
-        return await res.json();
-    };
 
     getResource('http://localhost:3000/menu')
         .then(data => {
@@ -119,4 +109,4 @@ function cards() {
     // /Используем классы для карточек
 }
 
-module.exports = cards;
+export default cards;

@@ -1,7 +1,10 @@
-function forms() {
+import {closeModal, openModal} from './modal';
+import {postData} from '../services/services';
+
+function forms(formSelector, modalTimerId) {
     // Forms
     // вариант ajax использующий XMLHttpRequest
-    const forms = document.querySelectorAll('form');
+    const forms = document.querySelectorAll(formSelector);
 
     const message = {
         loading: 'img/form/spinner.svg',
@@ -13,25 +16,6 @@ function forms() {
         // postDataFormData(item);
         bindPostData(item);
     });
-
-    const postData = async (url, data) => {
-
-        // это ассинхронный код (не знаем, через сколько вернется ответ от сервера)
-        // (fetch может не успеет выполнится, а res присвоится ничего) 
-        // для этого перед ф-ей ставим оператор async
-        // await - его парный оператор, который ставим перед теми операциями, кот-е необходимо дождаться
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-        });
-
-        // здесь тоже возвращается промис и тоже нужно дождать результа промиса прежде чем 
-        // выполнять return 
-        return await res.json(); // преобразуем ответ в json
-    };
 
     // отправляем данные в формате json
     // Метод Fetch
@@ -211,7 +195,7 @@ function forms() {
         const prevModalDialog = document.querySelector('.modal__dialog');
 
         prevModalDialog.classList.add('hide');
-        openModal();
+        openModal('.modal', modalTimerId);
 
         const thanksModal = document.createElement('div');
         thanksModal.classList.add('modal__dialog');
@@ -229,9 +213,9 @@ function forms() {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('modal');
         }, 4000);
     }
 }
 
-module.exports = forms;
+export default forms;
