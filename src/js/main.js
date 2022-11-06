@@ -39,7 +39,6 @@ window.addEventListener('DOMContentLoaded', () => {
         wrapper: '.offer__slider-wrapper',
         slide: '.offer__slide',
         field: '.offer__slider-inner'
-
     });
 
 });

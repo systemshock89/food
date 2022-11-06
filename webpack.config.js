@@ -2,6 +2,8 @@
 
 let path = require('path'); // техническая пер-я
 
+// это пример конфига webpack. в проекте webpack конфигурируется в gulpfile.js
+
 module.exports = {
   mode: 'development', // режим работы: development/production/none (никакой оптимизации)
   entry: './src/js/main.js', // файл, с которого будем начинать (обычно в нем прописываются все зав-ти require/import)

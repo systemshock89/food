@@ -6,7 +6,6 @@ function openModal(modalSelector, modalTimerId) {
     // modal.classList.toggle('show');
     document.body.style.overflow = 'hidden'; // убираем прокрутку страницы про открытом попапе
 
-    console.log(modalTimerId);
     if(modalTimerId){
         clearInterval(modalTimerId); // если пользователь сам открыл попап, то уже не показываем ему попап снова через 5 сек
     }

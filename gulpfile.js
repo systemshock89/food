@@ -24,17 +24,18 @@ gulp.task("build-js", () => {
                     watch: false,
                     devtool: "source-map",
                     module: {
+                        // правила для babel
                         rules: [
                           {
-                            test: /\.m?js$/,
-                            exclude: /(node_modules|bower_components)/,
+                            test: /\.m?js$/, // находим файлы js
+                            exclude: /(node_modules|bower_components)/, // исключаем папки
                             use: {
-                              loader: 'babel-loader',
+                              loader: 'babel-loader', // свяжет webpack и babel
                               options: {
                                 presets: [['@babel/preset-env', {
-                                    debug: true,
-                                    corejs: 3,
-                                    useBuiltIns: "usage"
+                                    debug: true, // показывает инф-ю во время компиляции
+                                    corejs: 3, // биб-ка corejs 3-й версии (для полифилов)
+                                    useBuiltIns: "usage" // позволяет corejs выбрать только те полифилы, кот-е нужны в проекте
                                 }]]
                               }
                             }
