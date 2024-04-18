@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
@@ -6,9 +6,12 @@
 /*!********************************!*\
   !*** ./src/js/modules/calc.js ***!
   \********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 function calc() {
   // Calc
   const result = document.querySelector('.calculating__result span');
@@ -51,7 +54,6 @@ function calc() {
       result.textContent = '____'; // то выводим пустую строку
       return; // и преращаем работу ф-и
     }
-
     if (sex === 'female') {
       result.textContent = Math.round((447.6 + 9.2 * weight + 3.1 * height - 4.3 * age) * ratio);
     } else {
@@ -78,7 +80,6 @@ function calc() {
       });
     });
   }
-
   getStaticInformation('#gender div', 'calculating__choose-item_active'); // для пола
   getStaticInformation('.calculating__choose_big div', 'calculating__choose-item_active'); // для физ. активности
 
@@ -106,7 +107,6 @@ function calc() {
       calcTotal(); // пересчитаем рез-т
     });
   }
-
   getDynamicInformation('#height');
   getDynamicInformation('#weight');
   getDynamicInformation('#age');
@@ -114,7 +114,7 @@ function calc() {
 }
 
 // module.exports = calc; // старый синтаксис экспорта модулей
-/* harmony default export */ __webpack_exports__["default"] = (calc); // стандарт ES6
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (calc); // стандарт ES6
 
 /***/ }),
 
@@ -122,29 +122,28 @@ function calc() {
 /*!*********************************!*\
   !*** ./src/js/modules/cards.js ***!
   \*********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./src/js/services/services.js");
 
 function cards() {
   // Используем классы для карточек
   class MenuCard {
-    constructor(src, alt, title, descr, price, parentSelector) {
+    constructor(src, alt, title, descr, price, parentSelector, ...classes) {
       this.src = src;
       this.alt = alt;
       this.title = title;
       this.descr = descr;
       this.price = price;
-      for (var _len = arguments.length, classes = new Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
-        classes[_key - 6] = arguments[_key];
-      }
       this.classes = classes; // rest элемент для того чтобы передавать несколько классов
       this.parent = document.querySelector(parentSelector);
       this.transfer = 27; // курс валют
       this.changeToUAH(); // можно ковертиацию вызвать здесь
     }
-
     changeToUAH() {
       // ковертация $ в гривны
       this.price = this.price * this.transfer;
@@ -173,14 +172,13 @@ function cards() {
     }
   }
   (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/menu').then(data => {
-    data.forEach(_ref => {
-      let {
-        img,
-        altimg,
-        title,
-        descr,
-        price
-      } = _ref;
+    data.forEach(({
+      img,
+      altimg,
+      title,
+      descr,
+      price
+    }) => {
       // используем деструктуризацию объекта. (вытащим св-ва)
 
       // надо передать в конструктор все св-ва объекта: obj.img, obj.alt и тд
@@ -236,8 +234,7 @@ function cards() {
   //     ).render();
   // /Используем классы для карточек
 }
-
-/* harmony default export */ __webpack_exports__["default"] = (cards);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cards);
 
 /***/ }),
 
@@ -245,9 +242,12 @@ function cards() {
 /*!*********************************!*\
   !*** ./src/js/modules/forms.js ***!
   \*********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./src/js/modules/modal.js");
 /* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/services */ "./src/js/services/services.js");
 
@@ -452,7 +452,7 @@ function forms(formSelector, modalTimerId) {
     }, 4000);
   }
 }
-/* harmony default export */ __webpack_exports__["default"] = (forms);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (forms);
 
 /***/ }),
 
@@ -460,12 +460,13 @@ function forms(formSelector, modalTimerId) {
 /*!*********************************!*\
   !*** ./src/js/modules/modal.js ***!
   \*********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "closeModal": function() { return /* binding */ closeModal; },
-/* harmony export */   "openModal": function() { return /* binding */ openModal; }
+/* harmony export */   closeModal: () => (/* binding */ closeModal),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   openModal: () => (/* binding */ openModal)
 /* harmony export */ });
 function openModal(modalSelector, modalTimerId) {
   const modal = document.querySelector(modalSelector);
@@ -478,7 +479,6 @@ function openModal(modalSelector, modalTimerId) {
     clearInterval(modalTimerId); // если пользователь сам открыл попап, то уже не показываем ему попап снова через 5 сек
   }
 }
-
 function closeModal(modalSelector) {
   const modal = document.querySelector(modalSelector);
   modal.classList.add('hide');
@@ -533,7 +533,7 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
   // когда пользователь долистает до самого конца страницы - показать попап
   window.addEventListener('scroll', showModalByScroll);
 }
-/* harmony default export */ __webpack_exports__["default"] = (modal);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
  // эти две ф-и требуются в модуле forms.js
 
 
@@ -543,20 +543,22 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
 /*!**********************************!*\
   !*** ./src/js/modules/slider.js ***!
   \**********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-function slider(_ref) {
-  let {
-    container,
-    slide,
-    nextArrow,
-    prevArrow,
-    totalCounter,
-    currentCounter,
-    wrapper,
-    field
-  } = _ref;
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function slider({
+  container,
+  slide,
+  nextArrow,
+  prevArrow,
+  totalCounter,
+  currentCounter,
+  wrapper,
+  field
+}) {
   // деструктуризация
   // Slider variant 2
   const slides = document.querySelectorAll(slide),
@@ -620,7 +622,6 @@ function slider(_ref) {
       offset += deleteNotDigits(width);
       // offset += +width.slice(0, width.length - 2);
     }
-
     slidesField.style.transform = `translateX(-${offset}px)`;
     if (slideIndex == slides.length) {
       slideIndex = 1;
@@ -721,8 +722,7 @@ function slider(_ref) {
   // });
   // /Slider variant 1
 }
-
-/* harmony default export */ __webpack_exports__["default"] = (slider);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);
 
 /***/ }),
 
@@ -730,9 +730,12 @@ function slider(_ref) {
 /*!********************************!*\
   !*** ./src/js/modules/tabs.js ***!
   \********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
   // Tabs
   const tabs = document.querySelectorAll(tabsSelector),
@@ -744,13 +747,11 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
       item.classList.remove('show', 'fade');
       // item.style.display = 'none';
     });
-
     tabs.forEach(item => {
       item.classList.remove(activeClass);
     });
   }
-  function showTabContent() {
-    let i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  function showTabContent(i = 0) {
     tabsContent[i].classList.add('show', 'fade');
     tabsContent[i].classList.remove('hide');
     // tabsContent[i].style.display = 'block';
@@ -771,7 +772,7 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
     }
   });
 }
-/* harmony default export */ __webpack_exports__["default"] = (tabs);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tabs);
 
 /***/ }),
 
@@ -779,9 +780,12 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
 /*!*********************************!*\
   !*** ./src/js/modules/timer.js ***!
   \*********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 function timer(id, deadline) {
   // Timer
 
@@ -846,7 +850,7 @@ function timer(id, deadline) {
   }
   setClock(id, deadline);
 }
-/* harmony default export */ __webpack_exports__["default"] = (timer);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timer);
 
 /***/ }),
 
@@ -854,12 +858,12 @@ function timer(id, deadline) {
 /*!*************************************!*\
   !*** ./src/js/services/services.js ***!
   \*************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getResource": function() { return /* binding */ getResource; },
-/* harmony export */   "postData": function() { return /* binding */ postData; }
+/* harmony export */   getResource: () => (/* binding */ getResource),
+/* harmony export */   postData: () => (/* binding */ postData)
 /* harmony export */ });
 const postData = async (url, data) => {
   // это ассинхронный код (не знаем, через сколько вернется ответ от сервера)
@@ -886,7 +890,6 @@ const getResource = async (url, data) => {
     throw new Error(`Could not fetch ${url}, status: ${res.status}`); // объект ошибки
     // оператор throw выкидывает новую ошибку
   }
-
   return await res.json();
 };
 
@@ -922,37 +925,37 @@ const getResource = async (url, data) => {
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
+(() => {
 /*!************************!*\
   !*** ./src/js/main.js ***!
   \************************/
@@ -1004,7 +1007,8 @@ window.addEventListener('DOMContentLoaded', () => {
     field: '.offer__slider-inner'
   });
 });
-}();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=script.js.map
