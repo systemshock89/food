@@ -51,7 +51,7 @@ function forms(formSelector, modalTimerId) {
 
             const baseUrl = process.env.NODE_ENV === 'development'
             ? 'http://localhost:3000'
-            : 'https://my-json-server.typicode.com/systemshock89/food';
+            : 'https://my-json-server.typicode.com/systemshock89/js-app-food';
 
             postData(`${baseUrl}/requests`, json)
                 .then(data => { // если ok

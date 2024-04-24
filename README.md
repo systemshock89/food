@@ -1,6 +1,6 @@
 <h1>Food - native js app</h1>
 <p>This is service food delivery.</p>
-<p><a href="https://systemshock89.github.io/food/">Demo</a></p>
+<p><a href="https://systemshock89.github.io/js-app-food/">Demo</a></p>
 
 <h2>Used technologies</h2>
 <ul>

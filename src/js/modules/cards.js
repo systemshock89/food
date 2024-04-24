@@ -47,7 +47,7 @@ function cards() {
 
     const baseUrl = process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://my-json-server.typicode.com/systemshock89/food';
+    : 'https://my-json-server.typicode.com/systemshock89/js-app-food';
 
     getResource(`${baseUrl}/menu`)
         .then(data => {
