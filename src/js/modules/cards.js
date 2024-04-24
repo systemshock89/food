@@ -45,7 +45,11 @@ function cards() {
         }
     }
 
-    getResource('http://localhost:3000/menu')
+    const baseUrl = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://my-json-server.typicode.com/systemshock89/food';
+
+    getResource(`${baseUrl}/menu`)
         .then(data => {
             data.forEach(({
                 img,

@@ -79,7 +79,13 @@ gulp.task("watch", () => {
 
 gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-sass", "build-js"));
 
+gulp.task("set-dev-node-env", () => {
+  return process.env.NODE_ENV = 'development';
+});
+
 gulp.task("prod", () => {
+    process.env.NODE_ENV = 'production';
+
     gulp.src("./src/index.html")
         .pipe(gulp.dest(dist));
     gulp.src("./src/img/**/*.*")
@@ -121,4 +127,4 @@ gulp.task("prod", () => {
         .pipe(gulp.dest(dist + '/css'));
 });
 
-gulp.task("default", gulp.parallel("watch", "build"));
+gulp.task("default", gulp.parallel("watch", "build", "set-dev-node-env"));
