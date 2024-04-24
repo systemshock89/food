@@ -49,7 +49,11 @@ function forms(formSelector, modalTimerId) {
             // });
             // затем из объекта получим json JSON.stringify(object) и передадим его в ф-ю postData
 
-            postData('http://localhost:3000/requests', json)
+            const baseUrl = process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000'
+            : 'https://my-json-server.typicode.com/systemshock89/food';
+
+            postData(`${baseUrl}/requests`, json)
                 .then(data => { // если ok
                     showThanksModal(message.success);
                     statusMessage.remove();
