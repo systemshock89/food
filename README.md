@@ -1,4 +1,4 @@
-<h1>Food</h1>
+<h1>Food - native js app</h1>
 <p><a href="https://systemshock89.github.io/food/">See example</a></p>
 
 <h2>Used technologies</h2>
